@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "scry"
+
+# ruby -Ilib ./bin/scrape_blackboard ~/blackboard_exports
+Scry.scrape ARGV

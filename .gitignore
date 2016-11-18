@@ -1,0 +1,15 @@
+.DS_Store
+**.orig
+/.bundle/
+/.yardoc
+/_yardoc/
+/Gemfile.lock
+/log
+/tmp
+/spec/tmp
+/spec/reports/
+/.bundle/
+/coverage/
+/pkg/
+/doc/
+.byebug_history
