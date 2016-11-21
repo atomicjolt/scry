@@ -1,7 +1,5 @@
-require "scry/version"
+require "scry/scraper"
 
 module Scry
-  def self.main
-
-  end
+  
 end

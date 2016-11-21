@@ -1,33 +1,32 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'scry/version'
+require "./lib/scry/version"
+require "time"
 
-Gem::Specification.new do |spec|
-  spec.name          = "scry"
-  spec.version       = Scry::VERSION
-  spec.authors       = ["David Spencer"]
-  spec.email         = ["david.spencer@atomicjolt.com"]
+Gem::Specification.new do |gem|
+  gem.name = "scry"
+  gem.version = Scry::VERSION
+  gem.date = Time.new.strftime("%Y-%m-%d")
+  gem.authors = "Atomic Jolt"
 
-  spec.summary       = "Export blackboard courses"
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  gem.summary = "Downloads Blackboard Cartridges"
+  gem.description = "Commandline tool that downloads blackboard cartridges"
+  gem.homepage = "https://github.com/atomicjolt/scry"
+  gem.license = "MIT"
+  gem.extra_rdoc_files = ["README.md"]
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
+  gem.files = Dir["LICENSE.txt", "README.md", "lib/**/*", "bin/*"]
+  gem.executables = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = ['scry']
-  spec.require_paths = ["lib"]
+  gem.add_development_dependency "bundler"
+  gem.add_development_dependency "pry-byebug"
+  gem.add_development_dependency "rspec"
+  gem.add_dependency "sidekiq", "~> 4.2"
+  gem.add_dependency "thin", "~> 1.7"
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "byebug", "~> 9.0"
-  spec.add_dependency "sidekiq", "~> 4.2"
-  spec.add_dependency "thin", "~> 1.7"
+  gem.metadata["allowed_push_host"] = "https://github.com/atomicjolt/"
+
+  [
+    ["mechanize", "~> 2.7.5"],
+    ["fileutils"],
+  ].each { |d| gem.add_runtime_dependency(*d) }
 end
