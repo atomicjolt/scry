@@ -1,5 +1,6 @@
 # coding: utf-8
 
+
 require "./lib/scry/version"
 require "time"
 
@@ -21,6 +22,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "pry-byebug"
   gem.add_development_dependency "rspec"
+  gem.add_dependency "sidekiq", "~> 4.2"
+  gem.add_dependency "thin", "~> 1.7"
 
   gem.metadata["allowed_push_host"] = "https://github.com/atomicjolt/"
 
