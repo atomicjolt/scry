@@ -1,1 +1,1 @@
-Dir["./lib/scry/sidekiq/workers/*.rb"].each {|file| require file }
+Dir["./lib/scry/sidekiq/workers/*.rb"].each { |file| require file }
