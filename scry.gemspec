@@ -1,4 +1,6 @@
 # coding: utf-8
+
+
 require "./lib/scry/version"
 require "time"
 
