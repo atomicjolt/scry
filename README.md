@@ -20,17 +20,36 @@ Or install it yourself as:
 $ gem install scry
 ```
 
+Create a ruby file `workers.rb` and add
+```ruby
+require "scry/workers"
+```
+
+Create a `sidekiq.yml` file and add
+```yml
+:concurrency: 5
+:queues:
+  - scry_export_generator
+  - scry_export_downloader
+
+```
+
 ## Usage
+
+Start up sidekiq
+```sh
+bundle exec sidekiq -r ./workers.rb -C sidekiq.yml
+```
 
 Run the rake task to download all the courses
 ```sh
-rake scrape
+rake scrape[https://blackboard.com/,login,password]
 ```
 This will download each cartridge zip into the default directory `blackboard_exports`
 
 To specify the directory:
 ```sh
-rake scrape other_dir
+rake scrape[https://blackboard.com/,login,password,other_dir]
 ```
 
 Delete entire blackboard_exports folder
@@ -53,7 +72,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Need redis running first: `redis-server`
 
-Run `bundle exec sidekiq -r ./bin/boot.rb -C sidekiq.yml`
+Run `bundle exec sidekiq -r ./lib/scry/workers.rb -C sidekiq.yml`
 
 To get access to the workers in code require "lib/scry/sidekiq/boot.rb"
 

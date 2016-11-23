@@ -2,7 +2,7 @@ require "bundler/setup"
 require "rspec"
 require "rake/clean"
 
-OUTPUT_DIRECTORY = "blackboard_exports".freeze
+DEFAULT_DIR = "blackboard_exports".freeze
 
 begin
   require "rspec/core/rake_task"
@@ -12,13 +12,16 @@ end
 
 task default: :spec
 
-task :scrape, [:output_directory] do |_t, args|
-  args.with_defaults(output_directory: OUTPUT_DIRECTORY)
-  output_directory = args.output_directory
-  mkdir_p output_directory
-  sh "ruby -Ilib ./bin/scrape_blackboard #{OUTPUT_DIRECTORY}/"
+task :scrape, [:url, :login, :passwd, :dir] do |_t, args|
+  args.with_defaults(dir: DEFAULT_DIR)
+  url = args.url
+  login = args.login
+  passwd = args.passwd
+  dir = args.dir
+  mkdir_p dir
+  sh "ruby -Ilib ./bin/scrape_blackboard #{url} #{login} #{passwd} #{dir}/"
 end
 
 task :clean do
-  rm_rf OUTPUT_DIRECTORY
+  rm_rf DEFAULT_DIR
 end
