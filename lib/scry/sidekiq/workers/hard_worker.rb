@@ -1,10 +1,14 @@
+require "rubygems"
+require "mechanize"
 require "sidekiq"
 
-class HardWorker
-  include Sidekiq::Worker
-  sidekiq_options queue: "scry_default"
+module Scry
+  class HardWorker
+    include Sidekiq::Worker
+    sidekiq_options queue: "scry_default"
 
-  def perform
-    puts "Hello world"
+    def perform
+      puts "Hello world"
+    end
   end
 end

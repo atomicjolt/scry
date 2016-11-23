@@ -51,7 +51,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Running sidekiq
 
-Run `bundle exec sidekiq -r ./lib/scry/sidekiq/boot.rb -C lib/scry/sidekiq/sidekiq.yml`
+Need redis running first: `redis-server`
+
+Run `bundle exec sidekiq -r ./bin/boot.rb -C sidekiq.yml`
 
 To get access to the workers in code require "lib/scry/sidekiq/boot.rb"
 
