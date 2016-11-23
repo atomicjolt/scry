@@ -27,5 +27,7 @@ Gem::Specification.new do |gem|
   [
     ["mechanize", "~> 2.7.5"],
     ["fileutils"],
+    ["sidekiq", "~> 4.2"],
+    ["thin", "~> 1.7"],
   ].each { |d| gem.add_runtime_dependency(*d) }
 end

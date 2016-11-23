@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+$: << File.join(__dir__, "..", "lib")
+
+require "rack"
+
+Rack::Server.start config: "lib/scry/sidekiq/config.ru"
