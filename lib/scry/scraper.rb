@@ -3,7 +3,6 @@ require "mechanize"
 require "scry/sidekiq/workers/export_generator"
 require "scry/helpers"
 require "scry/course"
-require "byebug"
 
 module Scry
   extend Scry::Helpers

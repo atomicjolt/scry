@@ -25,6 +25,12 @@ Create a ruby file `workers.rb` and add
 require "scry/workers"
 ```
 
+Create a `Rakefile` and add
+```ruby
+require "scry/tasks"
+Scry::Tasks.install_tasks
+```
+
 Create a `sidekiq.yml` file and add
 ```yml
 :concurrency: 5
@@ -41,28 +47,29 @@ Start up sidekiq
 bundle exec sidekiq -r ./workers.rb -C sidekiq.yml
 ```
 
-Run the rake task to download all the courses
+Run the rake task to download all the courses.
+It takes the url that the courses are located at, login, password, and optionally the directory they should go into.
 ```sh
-rake scrape[https://blackboard.com/,login,password]
+bundle exec rake scry:scrape[https://blackboard.com/,login,password]
 ```
 This will download each cartridge zip into the default directory `blackboard_exports`
 
 To specify the directory:
 ```sh
-rake scrape[https://blackboard.com/,login,password,other_dir]
+bundle exec rake scry:scrape[https://blackboard.com/,login,password,other_dir]
 ```
 
 Delete entire blackboard_exports folder
 ```sh
-rake clean
+bundle exec rake scry:clean
 ```
 
 Monitor sidekiq
 ```sh
-bin/monitor
+bundle exec monitor
 ```
 
-## Development
+# Development
 
 After checking out the repo, run `bundle install` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 

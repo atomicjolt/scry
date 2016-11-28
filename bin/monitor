@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
-$: << File.join(__dir__, "..", "lib")
+LIB_DIR = File.join(__dir__, "..", "lib")
+$LOAD_PATH << LIB_DIR
 
 require "rack"
 
-Rack::Server.start config: "lib/scry/sidekiq/config.ru"
+Rack::Server.start config: File.join(LIB_DIR, "scry/sidekiq/config.ru")
