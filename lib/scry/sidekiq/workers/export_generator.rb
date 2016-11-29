@@ -12,12 +12,12 @@ module Scry
 
     def perform(cookie_crumbs, course_url, dir)
       course = Course.from_cookies(cookie_crumbs, course_url)
-      utilities_page = course.create_export
-      if utilities_page
-        valid = course.validate_export(utilities_page)
+      exports_page = course.create_export
+      if exports_page
+        valid = course.validate_export(exports_page)
         if valid
           write_log("export_generation_good.txt", course_url)
-          download_url = course.download_url(utilities_page)
+          download_url = course.download_url(exports_page)
           Scry::ExportDownloader.perform_async(
             cookie_crumbs,
             course_url,

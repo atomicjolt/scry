@@ -33,39 +33,39 @@ module Scry
         text: /Packages & Utilities Overview Page/,
       )
       if package_links.any?
-        course_page_expanded = click_link(
+        utilities_page = click_link(
           agent: @agent,
           page: course_page,
           text: /Packages & Utilities Overview Page/,
         )
-        utilities_page = click_link(
+        exports_page = click_link(
           agent: @agent,
-          page: course_page_expanded,
+          page: utilities_page,
           text: /Export\/Archive Course/,
         )
-        export_links = utilities_page.links_with(
+        export_links = exports_page.links_with(
           text: /Export Package/,
         )
         if export_links.any?
-          _delete_existing_exports(utilities_page, nil)
+          _delete_existing_exports(exports_page, nil)
           export_page = click_link(
             agent: @agent,
-            page: utilities_page,
+            page: exports_page,
             text: /Export Package/,
           )
-          utilities_page = _process_export_form(export_page)
-          exports = utilities_page.links_with(
+          exports_page = _process_export_form(export_page)
+          exports = exports_page.links_with(
             text: "View Basic Log",
           )
-          _wait_for_export(exports, course_page_expanded)
+          _wait_for_export(exports, utilities_page)
         end
       end
     end
 
-    def validate_export(utilities_page)
-      links = utilities_page.links_with(text: "View Basic Log")
+    def validate_export(exports_page)
+      links = exports_page.links_with(text: "View Basic Log")
       if links.empty?
-        raise Scry::ExportFailed, "Links empty #{utilities_page.uri}"
+        raise Scry::ExportFailed, "Links empty #{exports_page.uri}"
       end
       url = links.last.attributes["onclick"][/'(.*)'/, 1]
       log_page = @agent.get(url)
@@ -92,20 +92,20 @@ module Scry
       end.submit
     end
 
-    def _wait_for_export(exports, course_page)
+    def _wait_for_export(exports, utilities_page)
       while exports.count.zero?
-        utilities_page = click_link(
+        exports_page = click_link(
           agent: @agent,
-          page: course_page,
+          page: utilities_page,
           text: /Export\/Archive Course/,
         )
-        exports = utilities_page.links_with(
+        exports = exports_page.links_with(
           text: "View Basic Log",
         )
         puts "waiting for link"
         sleep 30
       end
-      utilities_page
+      exports_page
     end
 
     def _delete_existing_exports(page, links)
