@@ -21,6 +21,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "pry-byebug", "~> 3.4"
   gem.add_development_dependency "rspec", "~> 3.5"
+  gem.add_development_dependency "webmock", "~> 2.1"
 
   gem.metadata["allowed_push_host"] = "https://github.com/atomicjolt/"
 
