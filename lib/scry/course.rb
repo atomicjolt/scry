@@ -57,7 +57,7 @@ module Scry
           exports = exports_page.links_with(
             text: "View Basic Log",
           )
-          _wait_for_export(exports, utilities_page)
+          _wait_for_export(exports, utilities_page, exports_page)
         end
       end
     end
@@ -92,7 +92,7 @@ module Scry
       end.submit
     end
 
-    def _wait_for_export(exports, utilities_page)
+    def _wait_for_export(exports, utilities_page, exports_page)
       while exports.count.zero?
         exports_page = click_link(
           agent: @agent,
