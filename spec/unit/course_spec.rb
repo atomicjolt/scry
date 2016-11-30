@@ -1,7 +1,7 @@
 require "scry"
 require "rspec"
 require "helpers/spec_helper"
-require "byebug"
+require "rubygems"
 
 RSpec.configure do |config|
   config.before(:each) do
@@ -14,12 +14,20 @@ RSpec.configure do |config|
   end
 end
 
+def mon_mutex
+  if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.3.0")
+    "!ruby/object:Mutex {}"
+  else
+    "!ruby/object:Thread::Mutex {}"
+  end
+end
+
 COOKIE_CRUMBS = %{
 --- !ruby/object:Mechanize::CookieJar
 store: !ruby/object:HTTP::CookieJar::HashStore
   mon_owner:
   mon_count: 0
-  mon_mutex: !ruby/object:Thread::Mutex {}
+  mon_mutex: #{mon_mutex}
   logger:
   gc_threshold: 150
   jar:
