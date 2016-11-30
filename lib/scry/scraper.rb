@@ -7,6 +7,12 @@ require "scry/course"
 module Scry
   extend Scry::Helpers
 
+  ##
+  # Creates sidekiq jobs for each course to generate an export.
+  #
+  # Logs in the user and goes over every course
+  # and creates a sidekiq to generate an export for it.
+  ##
   def self.scrape(url, login, passwd, dir)
     agent = Mechanize.new do |secret_agent_man|
       secret_agent_man.follow_meta_refresh = true

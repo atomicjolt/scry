@@ -7,6 +7,15 @@ module Scry
   class Tasks
     extend Rake::DSL if defined? Rake::DSL
 
+    ##
+    # Creates rake tasks that can be ran from the gem.
+    #
+    # Add this to your Rakefile
+    #
+    #   require "scry/tasks"
+    #   Scry::Tasks.install_tasks
+    #
+    ##
     def self.install_tasks
       namespace :scry do
         desc "Scrape the given url for course data"
@@ -20,6 +29,7 @@ module Scry
           Scry.scrape(url, login, passwd, dir)
         end
 
+        desc "Completely delete all downloaded files"
         task :clean do
           rm_rf DEFAULT_DIR
         end
