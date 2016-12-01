@@ -37,11 +37,17 @@ Scry::Tasks.install_tasks
 
 Create a `sidekiq.yml` file and add
 ```yml
-:concurrency: 5
+:concurrency: 20
+
 :queues:
-  - [scry_export_generator, 5]
-  - [scry_export_downloader, 5]
+  - [scry_export_generator, 1]
+  - [scry_export_downloader, 1]
+
+:limits:
+    scry_export_generator: 5
+    scry_export_downloader: 15
 ```
+_note: limits is available through the sidekiq-limit_fetch gem_
 
 ## Usage
 

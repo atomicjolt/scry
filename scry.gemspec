@@ -30,6 +30,7 @@ Gem::Specification.new do |gem|
     ["mechanize", "~> 2.7", ">= 2.7.5"],
     ["fileutils", "~> 0.7"],
     ["sidekiq", "~> 4.2"],
+    ["sidekiq-limit_fetch", "~> 3.4"],
     ["thin", "~> 1.7"],
   ].each { |d| gem.add_runtime_dependency(*d) }
 end
