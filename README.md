@@ -1,6 +1,10 @@
 # Scry [![Build Status](https://travis-ci.org/atomicjolt/scry.svg?branch=master)](https://travis-ci.org/atomicjolt/scry)
 
-TODO: Describe the gem
+Scrapes courses from blackboard.
+
+## Dependencies
+ruby >= 2.2.2
+redis-server >= 3.0.7
 
 ## Installation
 
@@ -35,9 +39,8 @@ Create a `sidekiq.yml` file and add
 ```yml
 :concurrency: 5
 :queues:
-  - scry_export_generator
-  - scry_export_downloader
-
+  - [scry_export_generator, 5]
+  - [scry_export_downloader, 5]
 ```
 
 ## Usage
