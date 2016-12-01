@@ -5,4 +5,4 @@ $LOAD_PATH << LIB_DIR
 
 require "rack"
 
-Rack::Server.start config: File.join(LIB_DIR, "scry/sidekiq/config.ru")
+Rack::Server.start config: File.join(LIB_DIR, "scry", "sidekiq", "config.ru")

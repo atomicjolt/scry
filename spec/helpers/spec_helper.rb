@@ -4,7 +4,7 @@ WebMock.disable_net_connect!(allow_localhost: true)
 require "sidekiq/testing"
 
 def fixture_reader(name)
-  File.read(File.join(File.dirname(__FILE__), "../fixtures/", name))
+  File.read(File.join(File.dirname(__FILE__), "..", "fixtures", name))
 end
 
 def stub_toe(type, pattern, page, with_params = nil)
