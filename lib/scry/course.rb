@@ -65,7 +65,9 @@ module Scry
           text: /Export Package/,
         )
         if export_button_link.any?
-          _delete_existing_exports(exports_page, nil)
+          course_id =
+            exports_page.form_with(name: "selectFileToDelete")["courseId"]
+          _delete_existing_exports(exports_page, course_id, nil)
           export_page = click_link(
             agent: @agent,
             page: exports_page,
@@ -75,7 +77,7 @@ module Scry
           exports = exports_page.links_with(
             text: "View Basic Log",
           )
-          _wait_for_export(exports, utilities_page, exports_page)
+          _wait_for_export(exports, utilities_page, exports_page, course_id)
         else
           write_log(
             "export_generation_no_export_button.txt",
@@ -140,9 +142,8 @@ module Scry
     # :nodoc:
     # Waits indefinitely for an export to show up on the exports page.
     ##
-    def _wait_for_export(exports, utilities_page, exports_page)
+    def _wait_for_export(exports, utilities_page, exports_page, course_id)
       time = Time.now
-      course_id = exports_page.form_with(name: "selectFileToDelete")["courseId"]
       while exports.count.zero?
         exports_page = click_link(
           agent: @agent,
@@ -164,9 +165,8 @@ module Scry
     # :nodoc:
     # Deletes all existing exports from a page.
     ##
-    def _delete_existing_exports(page, links)
+    def _delete_existing_exports(page, course_id, links)
       links ||= page.links_with(text: "Delete")
-      course_id = page.form_with(name: "selectFileToDelete")["courseId"]
       puts "#{course_id} Deleting exports... #{links.count} remaining"
       if links.any?
         filename = links.last.href[/'(.*)'\,/, 1]
@@ -177,7 +177,7 @@ module Scry
 
         links = page.links_with(text: "Delete")
         if links.any?
-          _delete_existing_exports(page, links)
+          _delete_existing_exports(page, course_id, links)
         end
       end
     end
