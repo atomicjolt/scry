@@ -3,11 +3,15 @@ require "scry/helpers"
 require "scry/export_failed"
 
 module Scry
+  ##
+  # This class represents a course for which we are extracting data
+  ##
   class Course
     include Scry::Helpers
 
     ##
-    # This class represents a course for which we are extracting data
+    # A new course accepts a Mechanize Agent
+    # and a Mechanize::Page::Link object for a course link
     ##
     def initialize(agent, course_link)
       @agent = agent
@@ -57,10 +61,10 @@ module Scry
           page: utilities_page,
           text: /Export\/Archive Course/,
         )
-        export_links = exports_page.links_with(
+        export_button_link = exports_page.links_with(
           text: /Export Package/,
         )
-        if export_links.any?
+        if export_button_link.any?
           _delete_existing_exports(exports_page, nil)
           export_page = click_link(
             agent: @agent,
@@ -72,6 +76,11 @@ module Scry
             text: "View Basic Log",
           )
           _wait_for_export(exports, utilities_page, exports_page)
+        else
+          write_log(
+            "export_generation_no_export_button.txt",
+            @course_link.href.strip,
+          )
         end
       end
     end
@@ -102,9 +111,13 @@ module Scry
     # Downloads the export into the given directory.
     ##
     def download_export(url, dir)
+      puts "Start downloading #{url}"
+      time = Time.now
       @agent.pluggable_parser["application/zip"] = Mechanize::Download
       filename = File.basename(URI.parse(url).path)
       @agent.get(url).save(File.join(dir, filename))
+      elapsed = Time.now - time
+      puts "Done downloading #{url} took #{elapsed} seconds"
     end
 
     ##
@@ -113,8 +126,12 @@ module Scry
     ##
     def _process_export_form(export_page)
       export_page.form_with(name: "selectCourse") do |export_form|
-        export_form.radiobuttons[1].check
-        export_form.radiobuttons[3].check
+        export_form.radiobutton_with(
+          id: "copyLinkToCourseFilesAndCopiesOfContent",
+        ).check
+        export_form.radiobutton_with(
+          id: "copyLinkToExternalCourseFilesAndCopiesOfContent",
+        ).check
         export_form.checkboxes.each(&:check)
       end.submit
     end
@@ -124,6 +141,8 @@ module Scry
     # Waits indefinitely for an export to show up on the exports page.
     ##
     def _wait_for_export(exports, utilities_page, exports_page)
+      time = Time.now
+      course_id = exports_page.form_with(name: "selectFileToDelete")["courseId"]
       while exports.count.zero?
         exports_page = click_link(
           agent: @agent,
@@ -133,9 +152,11 @@ module Scry
         exports = exports_page.links_with(
           text: "View Basic Log",
         )
-        puts "waiting for link"
+        elapsed = Time.now - time
+        puts "#{course_id} waiting for link for #{elapsed.to_i} seconds"
         sleep 30
       end
+      puts "#{course_id} done after #{(Time.now - time).to_i} seconds"
       exports_page
     end
 
@@ -145,7 +166,8 @@ module Scry
     ##
     def _delete_existing_exports(page, links)
       links ||= page.links_with(text: "Delete")
-      puts "Deleting... #{links.count} remaining"
+      course_id = page.form_with(name: "selectFileToDelete")["courseId"]
+      puts "#{course_id} Deleting exports... #{links.count} remaining"
       if links.any?
         filename = links.last.href[/'(.*)'\,/, 1]
 

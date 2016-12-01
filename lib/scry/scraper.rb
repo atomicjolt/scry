@@ -20,8 +20,8 @@ module Scry
 
     agent.get(url) do |home_page|
       index_page = home_page.form_with(name: "login") do |form|
-        form.fields[0].value = login
-        form.fields[1].value = passwd
+        form["user_id"] = login
+        form["password"] = passwd
       end.submit
       courses_page = click_link(
         agent: agent,
