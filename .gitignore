@@ -14,9 +14,5 @@
 /doc/
 .byebug_history
 dump.rdb
-export_generation_good.txt
-export_generation_bad.txt
-export_download_good.txt
-export_dowload_bad.txt
 blackboard_exports/*
 *.gem
