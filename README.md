@@ -4,6 +4,7 @@ Scrapes courses from blackboard.
 
 ## Dependencies
 ruby >= 2.2.2
+
 redis-server >= 3.0.7
 
 ## Installation
