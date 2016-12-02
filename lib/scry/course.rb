@@ -2,6 +2,8 @@ require "mechanize"
 require "scry/helpers"
 require "scry/export_failed"
 
+TWO_HOURS = 7200
+
 module Scry
   ##
   # This class represents a course for which we are extracting data
@@ -144,7 +146,10 @@ module Scry
     ##
     def _wait_for_export(exports, utilities_page, exports_page, course_id)
       time = Time.now
-      while exports.count.zero?
+      elapsed = 0
+      puts "Begin waiting for export link"
+      while exports.count.zero? && elapsed < TWO_HOURS
+        sleep 30
         exports_page = click_link(
           agent: @agent,
           page: utilities_page,
@@ -154,8 +159,10 @@ module Scry
           text: "View Basic Log",
         )
         elapsed = Time.now - time
-        puts "#{course_id} waiting for link for #{elapsed.to_i} seconds"
-        sleep 30
+        puts "#{course_id} waited #{elapsed.to_i} seconds for link"
+      end
+      if elapsed >= TWO_HOURS
+        raise Scry::ExportFailed, "Export timeout for #{course_id}"
       end
       puts "#{course_id} done after #{(Time.now - time).to_i} seconds"
       exports_page
