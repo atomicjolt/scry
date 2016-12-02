@@ -50,7 +50,7 @@ Create a `sidekiq.yml` file and add
   scry_export_downloader: 15
   scry_log_writer: 1
 ```
-_note: limits is available through the sidekiq-limit_fetch gem_
+_note: limits is available through the [sidekiq-limit_fetch](https://github.com/brainopia/sidekiq-limit_fetch) gem_
 
 ## Usage
 
