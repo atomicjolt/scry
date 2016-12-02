@@ -147,7 +147,7 @@ module Scry
     def _wait_for_export(exports, utilities_page, exports_page, course_id)
       time = Time.now
       elapsed = 0
-      puts "Begin waiting for export link"
+      puts "Begin waiting for export link for #{course_id}"
       while exports.count.zero? && elapsed < TWO_HOURS
         sleep 30
         exports_page = click_link(

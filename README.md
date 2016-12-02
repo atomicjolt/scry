@@ -43,10 +43,12 @@ Create a `sidekiq.yml` file and add
 :queues:
   - [scry_export_generator, 1]
   - [scry_export_downloader, 1]
+  - [scry_log_writer, 1]
 
 :limits:
-    scry_export_generator: 5
-    scry_export_downloader: 15
+  scry_export_generator: 5
+  scry_export_downloader: 15
+  scry_log_writer: 1
 ```
 _note: limits is available through the sidekiq-limit_fetch gem_
 

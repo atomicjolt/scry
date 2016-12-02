@@ -1,3 +1,5 @@
+require "scry/sidekiq/workers/log_writer"
+
 module Scry
   module Helpers
     ##
@@ -8,12 +10,10 @@ module Scry
     end
 
     ##
-    # Writes data to a given log file.
+    # Enqueues data to be written to a log file.
     ##
     def write_log(log, data)
-      File.open(log, "a") do |file|
-        file.puts data
-      end
+      Scry::LogWriter.perform_async(log, data)
     end
   end
 end
