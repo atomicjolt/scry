@@ -28,6 +28,9 @@ module Scry
         page: index_page,
         text: /Open Bb Course List/,
       )
+
+      # It is currently unknown if the links on the courses_page are paginated
+      # This gets them as if they are not.
       course_links = courses_page.links_with(href: /type=Course/)
       course_links.each do |course_link|
         cookie_crumbs = agent.cookie_jar.to_yaml
