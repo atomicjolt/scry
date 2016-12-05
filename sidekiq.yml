@@ -1,3 +1,11 @@
-:concurrency: 5
+:concurrency: 20
+
 :queues:
-  - scry_default
+  - [scry_export_generator, 1]
+  - [scry_export_downloader, 1]
+  - [scry_log_writer, 1]
+
+:limits:
+  scry_export_generator: 5
+  scry_export_downloader: 15
+  scry_log_writer: 1

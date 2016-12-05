@@ -1,0 +1,330 @@
+<form id="selectCourse" enctype="multipart/form-data" name="selectCourse" action="/webapps/blackboard/execute/contentExchange?course_id=_62733_1" method="post">
+  <input type="hidden" name="blackboard.platform.security.NonceUtil.nonce" value="10ecadc3-cff4-4095-bc8b-39f1ca020f8f">
+  <input type="hidden" name="cxAction" id="cxAction" value="export">
+  <input type="hidden" name="navItem" id="navItem" value="cp_course_export">
+  <input type="hidden" name="contextNavItem" id="contextNavItem" value="control_panel">
+  <input type="hidden" name="commonCartridge" id="commonCartridge" value="false">
+  <div id="dataCollectionContainer">
+    <div class="submitStepTop">
+      <div class="taskbuttondiv_wrapper">
+        <p class="taskbuttondiv" id="top_submitButtonRow">
+          <input class="button-2" type="button" name="top_Cancel" value="Cancel" onclick="document.location='/webapps/blackboard/admin/archive_manager.jsp?navItem=cp_course_utilities_export&course_id=_62733_1&contextNavItem=control_panel';">
+          <input class="submit button-1" name="top_Submit" type="submit" value="Submit" onclick="">
+        </p>
+      </div>
+    </div>
+    <div id="step1" class=" ">
+      <h3 id="steptitle1" class="steptitle">
+        <span id="stepnumber1">1.</span> &nbsp;
+        Select Copy Options
+      </h3>
+      <div id="stepcontent1" class="  stepcontent  ">
+        <ol>
+          <li class="required">
+            <div class="label">
+              <label for="courseId">
+                <img src="/images/ci/icons/required.gif" alt="Required"> Source Course ID
+              </label>
+            </div>
+            <div class="field">
+              CS-101
+              <input type="hidden" name="courseId" id="courseId" aria-required="true" value="CS-101">
+              <span class="fieldErrorText"></span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div id="step2" class=" ">
+      <h3 id="steptitle2" class="steptitle">
+        <span id="stepnumber2">2.</span> &nbsp;
+        File Attachments
+      </h3>
+      <div id="stepcontent2" class="  stepcontent  ">
+        <ol>
+          <li><span class="stepHelp" id="stephelp2" tabindex="0">Choose between copying only the links to files or the links and new copies of every file attached within the course. Click <strong>Calculate Size</strong> to make sure that the package size does not exceed the limit.</span></li>
+          <li>
+            <div class="label">
+              Course Files Default Directory
+            </div>
+            <div class="field">
+              <fieldset role="radiogroup" aria-labelledby="leg_bb87cd5dc980473ea4bcccd31ecdeebf">
+                <legend id="leg_bb87cd5dc980473ea4bcccd31ecdeebf"><span class="hideoff">Course Files Default Directory</span></legend>
+                <p>
+                  <input id="copyLinkToCourseFiles" type="radio" value="false" name="importCSItems" checked="checked">
+                  <label for="copyLinkToCourseFiles">Copy only links to course default directory files</label>
+                </p>
+                <p>
+                  <input id="copyLinkToCourseFilesAndCopiesOfContent" type="radio" value="true" name="importCSItems">
+                  <label for="copyLinkToCourseFilesAndCopiesOfContent">Copy links and include copies of the files in the course default directory</label>
+                </p>
+              </fieldset>
+              <span class="fieldErrorText"></span>
+            </div>
+          </li>
+          <li>
+            <div class="label">
+              Files Outside of the Course Default Directory
+            </div>
+            <div class="field">
+              <p>
+                <input id="copyLinkToExternalCourseFiles" type="radio" value="false" name="importECSItems" checked="checked">
+                <label for="copyLinkToExternalCourseFiles">Copy only links to files stored outside of the course default directory</label>
+              </p>
+              <p>
+                <input id="copyLinkToExternalCourseFilesAndCopiesOfContent" type="radio" value="true" name="importECSItems">
+                <label for="copyLinkToExternalCourseFilesAndCopiesOfContent">Copy links and include copies of the files outside of the course default directory</label>
+              </p>
+              <span class="fieldErrorText"></span>
+            </div>
+          </li>
+          <li>
+            <div class="noLabelField">
+              <style type="text/css">
+              #allowedMsg {
+                border-bottom: medium none;
+                color: #666666;
+                display: block;
+                font-size: 90%;
+                padding: 0 4px 4px 0;
+              }
+
+              #overLimitMsg {
+                border-bottom: medium none;
+                color: #666666;
+                display: block;
+                font-size: 90%;
+                padding: 0 4px 4px 0;
+              }
+              </style>
+              <fieldset>
+                <ol>
+                  <li id="packageSize" style="display: none;">
+                    <div class="label">Package Size</div>
+                    <div class="field">
+                      <span class="help" id="allowedMsg" style="display: none;">Allowed package size:&nbsp; <span id="maxCoursePackageSizeForDisplay">Unlimited</span></span>
+                      <span class="fieldErrorText" id="overLimitMsg" style="color: red; font-weight: bold; display: none;">Course package is over the limit. Allowed package size:&nbsp;<span id="allowedPackageSizeForWarning">Unlimited</span></span>
+                      <strong class="itemCounter" id="courseFilesSizeUI" style="display: none;"><span id="coursePackageSizeForDisplay">0</span></strong>&nbsp;
+                      <a class="button-4" href="#" id="calculateClassFilesSizeButton">Calculate Size</a>&nbsp;&nbsp;
+                      <input type="button" class="button-4" id="classFilesExcludeFoldersPickerButton_csBrowse" value="Manage Package Contents" title="Manage Package Contents">
+                    </div>
+                  </li>
+                </ol>
+              </fieldset>
+              <span class="fieldErrorText"></span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div id="step3" class=" ">
+      <h3 id="steptitle3" class="steptitle">
+               <span id="stepnumber3">3.</span> &nbsp;
+            Select Course Materials
+      </h3>
+      <div id="stepcontent3" class="  stepcontent  ">
+        <ol>
+          <li><span class="stepHelp" id="stephelp3" tabindex="0">Select materials to include in the export package. For a package to serve as an exact record, including user records, use archive instead of export.</span></li>
+          <li>
+            <div class="noLabelField">
+              <!-- Start Content Checkbox List -->
+              <div class="checkListActions">
+                <a href="#" onclick="selectAll(false, false);return false;" class="genericButton">Select All</a>
+                <a href="#" onclick="selectNone();return false;" class="genericButton">Unselect All</a>
+              </div>
+              <ul class="parent-child-listing" id="contentCheckboxList">
+                <li>
+                  <input type="checkbox" name="content" id="content_id" onclick="checkContent()">
+                  <label for="content_id"> Content Areas </label>
+                </li>
+                <li>
+                  <ul>
+                    <li>
+                      <input type="checkbox" name="toc_486951_1" id="toc_486951_1_id" onclick="uncheckContent()">
+                      <label for="toc_486951_1_id"> Home: WMGT101-17A Res </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486952_1" id="toc_486952_1_id" onclick="uncheckContent()">
+                      <label for="toc_486952_1_id"> Schedule </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486953_1" id="toc_486953_1_id" onclick="uncheckContent()">
+                      <label for="toc_486953_1_id"> Lessons </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486954_1" id="toc_486954_1_id" onclick="uncheckContent()">
+                      <label for="toc_486954_1_id"> Assignments </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486955_1" id="toc_486955_1_id" onclick="uncheckContent()">
+                      <label for="toc_486955_1_id"> Tests & Quizzes </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486956_1" id="toc_486956_1_id" onclick="uncheckContent()">
+                      <label for="toc_486956_1_id"> Solutions </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486957_1" id="toc_486957_1_id" onclick="uncheckContent()">
+                      <label for="toc_486957_1_id"> Surveys </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486958_1" id="toc_486958_1_id" onclick="uncheckContent()">
+                      <label for="toc_486958_1_id"> Course Admin </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486959_1" id="toc_486959_1_id" onclick="uncheckContent()">
+                      <label for="toc_486959_1_id"> Weekend/Holiday Travel </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486960_1" id="toc_486960_1_id" onclick="uncheckContent()">
+                      <label for="toc_486960_1_id"> PT Tracker </label>
+                    </li>
+                    <li>
+                      <input type="checkbox" name="toc_486961_1" id="toc_486961_1_id" onclick="uncheckContent()">
+                      <label for="toc_486961_1_id"> Resources </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="availabilityRule" id="availabilityRule_id" disabled="true" onclick="">
+                  <label for="availabilityRule_id"> Adaptive Release Rules for Content </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="announcement" id="announcement_id" onclick="">
+                  <label for="announcement_id"> Announcements </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="blog" id="blog_id" onclick="">
+                  <label for="blog_id"> Blogs </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="calendar" id="calendar_id" onclick="">
+                  <label for="calendar_id"> Calendar </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="collabSessions" id="collabSessions_id" onclick="">
+                  <label for="collabSessions_id"> Collaboration Sessions </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="staffInformation" id="staffInformation_id" onclick="">
+                  <label for="staffInformation_id"> Contacts </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="alignments" id="alignments_id" onclick="">
+                  <label for="alignments_id"> Content Alignments </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="discussionBoard" id="discussionBoard_id" onclick="">
+                  <label for="discussionBoard_id"> Discussion Board </label>
+                </li>
+                <li class="notCCCompatible">
+                  <ul>
+                    <li>
+                      <input type="radio" name="excludeStarterPosts" id="excludeStarterPostsFalseId" checked="" onclick="" value="false">
+                      <label for="excludeStarterPosts_id"> Include starter posts for each thread in each forum (anonymized) </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="radio" name="excludeStarterPosts" id="excludeStarterPostsTrueId" onclick="" value="true">
+                      <label for="excludeStarterPosts_id"> Include only the forums, with no starter posts </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="glossary" id="glossary_id" onclick="">
+                  <label for="glossary_id"> Glossary </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="gradebookItems" id="gradebookItems_id" onclick="">
+                  <label for="gradebookItems_id"> Grade Center Columns and Settings </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="groups" id="groups_id" onclick="">
+                  <label for="groups_id"> Group Settings </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="journal" id="journal_id" onclick="">
+                  <label for="journal_id"> Journals </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="customArea(bb-retention)" id="customArea(bb-retention)_id" onclick="">
+                  <label for="customArea(bb-retention)_id"> Retention Center Rules </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="rubric" id="rubric_id" onclick="">
+                  <label for="rubric_id"> Rubrics </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="settings" id="settings_id" onclick="checkSettings(false,false)">
+                  <label for="settings_id"> Settings </label>
+                </li>
+                <li class="notCCCompatible">
+                  <ul>
+                    <li>
+                      <input type="checkbox" name="availability" id="availability_id" onclick="uncheckSettings()">
+                      <label for="availability_id"> Availability </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="bannerImage" id="bannerImage_id" onclick="uncheckSettings()">
+                      <label for="bannerImage_id"> Banner Image </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="allow_guests" id="allow_guests_id" onclick="uncheckSettings()">
+                      <label for="allow_guests_id"> Course Guest Access </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="allow_observers" id="allow_observers_id" onclick="uncheckSettings()">
+                      <label for="allow_observers_id"> Course Observer Access </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="duration" id="duration_id" onclick="uncheckSettings()">
+                      <label for="duration_id"> Duration </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="enrollment" id="enrollment_id" onclick="uncheckSettings()">
+                      <label for="enrollment_id"> Enrollment Options </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="language_pack" id="language_pack_id" onclick="uncheckSettings()">
+                      <label for="language_pack_id"> Language Pack </label>
+                    </li>
+                    <li class="notCCCompatible">
+                      <input type="checkbox" name="navSettings" id="navSettings_id" onclick="uncheckSettings()">
+                      <label for="navSettings_id"> Navigation Settings </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="tasks" id="tasks_id" onclick="">
+                  <label for="tasks_id"> Tasks </label>
+                </li>
+                <li>
+                  <input type="checkbox" name="assessment" id="assessment_id" onclick="">
+                  <label for="assessment_id"> Tests, Surveys, and Pools </label>
+                </li>
+                <li class="notCCCompatible">
+                  <input type="checkbox" name="customArea(bb-wiki)" id="customArea(bb-wiki)_id" onclick="">
+                  <label for="customArea(bb-wiki)_id"> Wikis </label>
+                </li>
+              </ul>
+              <!-- End Content Checkbox List -->
+              <span class="fieldErrorText"></span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="submitStepBottom">
+      <h3 id="steptitle4" class="steptitle submittitle">
+ <span id="stepnumber4">4.</span>
+ &nbsp;Submit
+</h3>
+      <p class="taskbuttonhelp" tabindex="0">Click <b>Submit</b> to proceed. Click <b>Cancel</b> to go back.</p>
+      <div class="taskbuttondiv_wrapper">
+        <p class="taskbuttondiv" id="bottom_submitButtonRow">
+          <input class="button-2" type="button" name="bottom_Cancel" value="Cancel" onclick="document.location='/webapps/blackboard/admin/archive_manager.jsp?navItem=cp_course_utilities_export&course_id=_62733_1&contextNavItem=control_panel';">
+          <input class="submit button-1" name="bottom_Submit" type="submit" value="Submit" onclick="">
+        </p>
+      </div>
+    </div>
+  </div>
+</form>

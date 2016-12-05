@@ -2,5 +2,5 @@
 
 require "scry"
 
-# ruby -Ilib ./bin/scrape_blackboard ~/blackboard_exports
-Scry.scrape ARGV
+# ruby -Ilib ./bin/scrape_blackboard
+Scry.scrape

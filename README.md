@@ -1,6 +1,11 @@
 # Scry [![Build Status](https://travis-ci.org/atomicjolt/scry.svg?branch=master)](https://travis-ci.org/atomicjolt/scry)
 
-TODO: Describe the gem
+Scrapes courses from blackboard.
+
+## Dependencies
+ruby >= 2.2.2
+
+redis-server >= 3.0.7
 
 ## Installation
 
@@ -20,30 +25,79 @@ Or install it yourself as:
 $ gem install scry
 ```
 
+Create a ruby file `workers.rb` and add
+```ruby
+require "scry/workers"
+```
+
+Create a `Rakefile` and add
+```ruby
+require "scry/tasks"
+Scry::Tasks.install_tasks
+```
+
+Create a `sidekiq.yml` file and add
+```yml
+:concurrency: 20
+
+:queues:
+  - [scry_export_generator, 1]
+  - [scry_export_downloader, 1]
+  - [scry_log_writer, 1]
+
+:limits:
+  scry_export_generator: 5
+  scry_export_downloader: 15
+  scry_log_writer: 1
+```
+_note: limits is available through the [sidekiq-limit_fetch](https://github.com/brainopia/sidekiq-limit_fetch) gem_
+
+Create a "scry.yml" file and add
+```yml
+:url: https://<blackboard_url>/
+:login: <user_name>
+:passwd: <user_password>
+```
+
+### Optional
+If different log file names are desired, in the `scry.yml` add the file names.
+This is the default configuration:
+```yml
+:export_generation_good: export_generation_good.txt
+:export_generation_bad: export_generation_bad.txt
+:export_download_good: export_download_good.txt
+:export_download_bad: export_download_bad.txt
+:export_generation_no_export_button: export_generation_no_export_button.txt
+```
+And if a different export folder is desired:
+```yml
+:default_dir: blackboard_exports
+```
+
 ## Usage
 
-Run the rake task to download all the courses
+Start up sidekiq
 ```sh
-rake scrape
+bundle exec sidekiq -r ./workers.rb -C sidekiq.yml
+```
+
+Run the rake task to download all the courses.
+```sh
+bundle exec rake scry:scrape
 ```
 This will download each cartridge zip into the default directory `blackboard_exports`
 
-To specify the directory:
+Delete entire default blackboard_exports folder
 ```sh
-rake scrape other_dir
-```
-
-Delete entire blackboard_exports folder
-```sh
-rake clean
+bundle exec rake scry:clean
 ```
 
 Monitor sidekiq
 ```sh
-bin/monitor
+bundle exec monitor
 ```
 
-## Development
+# Development
 
 After checking out the repo, run `bundle install` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -53,7 +107,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Need redis running first: `redis-server`
 
-Run `bundle exec sidekiq -r ./bin/boot.rb -C sidekiq.yml`
+Run `bundle exec sidekiq -r ./lib/scry/workers.rb -C sidekiq.yml`
 
 To get access to the workers in code require "lib/scry/sidekiq/boot.rb"
 
