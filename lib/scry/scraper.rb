@@ -33,16 +33,14 @@ module Scry
         text: /Open Bb Course List/,
       )
 
-      courses_done = if File.exists?(Scry.export_download_good)
-                       File.read(Scry.export_download_good)
-                     end
+      courses_downloaded = Scry.courses_downloaded
 
       # It is currently unknown if the links on the courses_page are paginated
       # This gets them as if they are not.
       course_links = courses_page.links_with(href: /type=Course/)
       course_links.each do |course_link|
         course_url = course_link.href.strip
-        if courses_done && !courses_done.include?(course_url)
+        if courses_downloaded && !courses_downloaded.include?(course_url)
           cookie_crumbs = agent.cookie_jar.to_yaml
           Scry::ExportGenerator.perform_async(
             cookie_crumbs,
@@ -50,6 +48,12 @@ module Scry
           )
         end
       end
+    end
+  end
+
+  def self.courses_downloaded
+    if File.exists?(Scry.export_download_good)
+      File.read(Scry.export_download_good)
     end
   end
 end

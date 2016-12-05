@@ -22,6 +22,7 @@ describe Scry do
       allow(Scry).to receive(:url).and_return("http://blackboard.com/home.html")
       allow(Scry).to receive(:login).and_return("bob")
       allow(Scry).to receive(:passwd).and_return("12345")
+      allow(Scry).to receive(:courses_downloaded).and_return("")
     end
 
     it "should queue export jobs" do
