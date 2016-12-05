@@ -26,10 +26,10 @@ module Scry
       uri = URI.parse(course_url)
       uri.path = download_url
       course.download_export(uri.to_s, dir)
-      write_log("export_download_good.txt", course_url)
+      write_log(Scry.export_download_good, course_url)
     rescue SocketError, Mechanize::Error, Net::HTTPClientError => e
       write_log(
-        "export_download_bad.txt",
+        Scry.export_download_bad,
         "#{course_url} #{e.class} #{e.message}",
       )
       raise

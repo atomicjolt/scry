@@ -27,7 +27,7 @@ module Scry
       if exports_page
         valid = course.validate_export(exports_page)
         if valid
-          write_log("export_generation_good.txt", course_url)
+          write_log(Scry.export_generation_good, course_url)
           download_url = course.download_url(exports_page)
           Scry::ExportDownloader.perform_async(
             cookie_crumbs,
@@ -36,7 +36,7 @@ module Scry
             dir,
           )
         else
-          write_log("export_generation_bad.txt", course_url)
+          write_log(Scry.export_generation_bad, course_url)
           raise Scry::ExportFailed, "Something failed"
         end
       end

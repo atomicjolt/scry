@@ -52,6 +52,17 @@ Create a `sidekiq.yml` file and add
 ```
 _note: limits is available through the [sidekiq-limit_fetch](https://github.com/brainopia/sidekiq-limit_fetch) gem_
 
+### Optional
+If different file names are desired, add a `scry.yml` and change the file names.
+This is the default configuration:
+```yml
+:export_generation_good: export_generation_good.txt
+:export_generation_bad: export_generation_bad.txt
+:export_download_good: export_download_good.txt
+:export_download_bad: export_download_bad.txt
+:export_generation_no_export_button: export_generation_no_export_button.txt
+```
+
 ## Usage
 
 Start up sidekiq

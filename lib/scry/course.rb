@@ -82,7 +82,7 @@ module Scry
           _wait_for_export(exports, utilities_page, exports_page, course_id)
         else
           write_log(
-            "export_generation_no_export_button.txt",
+            Scry.export_generation_no_export_button,
             @course_link.href.strip,
           )
         end
