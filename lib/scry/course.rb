@@ -1,4 +1,5 @@
 require "mechanize"
+require "scry"
 require "scry/helpers"
 require "scry/export_failed"
 
