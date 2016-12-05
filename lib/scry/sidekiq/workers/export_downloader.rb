@@ -1,5 +1,6 @@
 require "mechanize"
 require "sidekiq"
+require "scry"
 require "scry/course"
 require "scry/export_failed"
 require "scry/helpers"

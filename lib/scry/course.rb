@@ -114,12 +114,12 @@ module Scry
     ##
     # Downloads the export into the given directory.
     ##
-    def download_export(url, dir)
+    def download_export(url)
       puts "Start downloading #{url}"
       time = Time.now
       @agent.pluggable_parser["application/zip"] = Mechanize::Download
       filename = File.basename(URI.parse(url).path)
-      @agent.get(url).save(File.join(dir, filename))
+      @agent.get(url).save(File.join(Scry.default_dir, filename))
       elapsed = Time.now - time
       puts "Done downloading #{url} took #{elapsed} seconds"
     end
