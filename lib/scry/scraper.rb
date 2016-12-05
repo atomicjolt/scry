@@ -41,7 +41,7 @@ module Scry
       course_links = courses_page.links_with(href: /type=Course/)
       course_links.each do |course_link|
         course_url = course_link.href.strip
-        if !courses_downloaded.include?(course_url)
+        if !courses_downloaded.include? course_url
           cookie_crumbs = agent.cookie_jar.to_yaml
           Scry::ExportGenerator.perform_async(
             cookie_crumbs,

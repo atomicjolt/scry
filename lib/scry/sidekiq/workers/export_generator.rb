@@ -25,7 +25,7 @@ module Scry
     def perform(cookie_crumbs, course_url)
       course = Course.from_cookies(cookie_crumbs, course_url)
       exports_page = course.create_export
-      if exports_page
+      if exports_page.is_a? Mechanize::Page
         valid = course.validate_export(exports_page)
         if valid
           write_log(Scry.export_generation_good, course_url)
