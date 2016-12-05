@@ -18,9 +18,15 @@ end
 
 describe Scry do
   describe "scrape" do
+    before do
+      allow(Scry).to receive(:url).and_return("http://blackboard.com/home.html")
+      allow(Scry).to receive(:login).and_return("bob")
+      allow(Scry).to receive(:passwd).and_return("12345")
+    end
+
     it "should queue export jobs" do
       expect do
-        Scry.scrape("http://blackboard.com/home.html", "bob", "12345", "dir")
+        Scry.scrape
       end.to change(Scry::ExportGenerator.jobs, :size).by(2)
 
       expect(Scry::ExportGenerator.jobs[0]["args"][1]).to eq(
