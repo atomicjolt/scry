@@ -46,7 +46,7 @@ module Scry
     #
     # First it all existing exports, then attempts to create a new export.
     #
-    # It will wait indefinitely for the export to be created.
+    # It will wait a specified amount of time for the export to be created.
     ##
     def create_export
       course_page = @agent.click(@course_link)
@@ -143,7 +143,8 @@ module Scry
 
     ##
     # :nodoc:
-    # Waits indefinitely for an export to show up on the exports page.
+    # Waits a specified amount of time for an export
+    # to show up on the exports page.
     ##
     def _wait_for_export(exports, utilities_page, exports_page, course_id)
       time = Time.now
