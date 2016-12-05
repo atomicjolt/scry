@@ -11,7 +11,11 @@ DEFAULT_DIR = "blackboard_exports".freeze
 
 module Scry
   def self.config
-    YAML::load(File.read("scry.yml"))
+    if File.exists? "scry.yml"
+      YAML::load(File.read("scry.yml"))
+    else
+      {}
+    end
   end
 
   def self.url
