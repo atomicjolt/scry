@@ -60,7 +60,7 @@ Create a "scry.yml" file and add
 ```
 
 ### Optional
-If different file names are desired, in the `scry.yml` add the file names.
+If different log file names are desired, in the `scry.yml` add the file names.
 This is the default configuration:
 ```yml
 :export_generation_good: export_generation_good.txt
