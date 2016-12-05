@@ -13,7 +13,11 @@ module Scry
   # Logs in the user and goes over every course
   # and creates a sidekiq to generate an export for it.
   ##
-  def self.scrape(url, login, passwd, dir)
+  def self.scrape
+    url = Scry.url
+    login = Scry.login
+    passwd = Scry.passwd
+
     agent = Mechanize.new do |secret_agent_man|
       secret_agent_man.follow_meta_refresh = true
     end
@@ -43,7 +47,6 @@ module Scry
           Scry::ExportGenerator.perform_async(
             cookie_crumbs,
             File.join(url, course_url),
-            dir,
           )
         end
       end

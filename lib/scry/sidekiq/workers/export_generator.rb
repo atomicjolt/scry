@@ -21,7 +21,7 @@ module Scry
     # Creates a course from the cookies,
     # then starts generating the export.
     ##
-    def perform(cookie_crumbs, course_url, dir)
+    def perform(cookie_crumbs, course_url)
       course = Course.from_cookies(cookie_crumbs, course_url)
       exports_page = course.create_export
       if exports_page
@@ -33,7 +33,6 @@ module Scry
             cookie_crumbs,
             course_url,
             download_url,
-            dir,
           )
         else
           write_log(Scry.export_generation_bad, course_url)

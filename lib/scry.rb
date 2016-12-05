@@ -7,13 +7,27 @@ EXPORT_DOWNLOAD_BAD = "export_download_bad.txt".freeze
 EXPORT_GENERATION_NO_EXPORT_BUTTON =
   "export_generation_no_export_button.txt".freeze
 
+DEFAULT_DIR = "blackboard_exports".freeze
+
 module Scry
   def self.config
-    if File.exists? "scry.yml"
-      YAML::load(File.read("scry.yml"))
-    else
-      {}
-    end
+    YAML::load(File.read("scry.yml"))
+  end
+
+  def self.url
+    Scry.config[:url]
+  end
+
+  def self.login
+    Scry.config[:login]
+  end
+
+  def self.passwd
+    Scry.config[:passwd]
+  end
+
+  def self.default_dir
+    Scry.config[:default_dir] || DEFAULT_DIR
   end
 
   def self.export_generation_good

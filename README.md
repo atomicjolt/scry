@@ -52,8 +52,15 @@ Create a `sidekiq.yml` file and add
 ```
 _note: limits is available through the [sidekiq-limit_fetch](https://github.com/brainopia/sidekiq-limit_fetch) gem_
 
+Create a "scry.yml" file and add
+```yml
+:url: https://<blackboard_url>/
+:login: <user_name>
+:passwd: <user_password>
+```
+
 ### Optional
-If different file names are desired, add a `scry.yml` and change the file names.
+If different file names are desired, in the `scry.yml` add the file names.
 This is the default configuration:
 ```yml
 :export_generation_good: export_generation_good.txt
@@ -61,6 +68,10 @@ This is the default configuration:
 :export_download_good: export_download_good.txt
 :export_download_bad: export_download_bad.txt
 :export_generation_no_export_button: export_generation_no_export_button.txt
+```
+And if a different export folder is desired:
+```yml
+:default_dir: blackboard_exports
 ```
 
 ## Usage
@@ -71,18 +82,12 @@ bundle exec sidekiq -r ./workers.rb -C sidekiq.yml
 ```
 
 Run the rake task to download all the courses.
-It takes the url that the courses are located at, login, password, and optionally the directory they should go into.
 ```sh
-bundle exec rake scry:scrape[https://blackboard.com/,login,password]
+bundle exec rake scry:scrape
 ```
 This will download each cartridge zip into the default directory `blackboard_exports`
 
-To specify the directory:
-```sh
-bundle exec rake scry:scrape[https://blackboard.com/,login,password,other_dir]
-```
-
-Delete entire blackboard_exports folder
+Delete entire default blackboard_exports folder
 ```sh
 bundle exec rake scry:clean
 ```
