@@ -1,5 +1,6 @@
 require "rubygems"
 require "mechanize"
+require "scry"
 require "scry/sidekiq/workers/export_generator"
 require "scry/helpers"
 require "scry/course"
