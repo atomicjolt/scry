@@ -30,6 +30,18 @@ module Scry
     Scry.config[:passwd]
   end
 
+  def self.canvas_api_url
+    Scry.config[:canvas_api_url]
+  end
+
+  def self.canvas_auth_token
+    Scry.config[:canvas_auth_token]
+  end
+
+  def self.canvas_account_id
+    Scry.config[:canvas_account_id]
+  end
+
   def self.default_dir
     Scry.config[:default_dir] || DEFAULT_DIR
   end

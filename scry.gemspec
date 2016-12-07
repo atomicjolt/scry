@@ -32,5 +32,7 @@ Gem::Specification.new do |gem|
     ["sidekiq", "~> 4.2"],
     ["sidekiq-limit_fetch", "~> 3.4"],
     ["thin", "~> 1.7"],
+    ["pandarus", "~> 0.6"],
+    ["rest-client", "~>2.0"],
   ].each { |d| gem.add_runtime_dependency(*d) }
 end

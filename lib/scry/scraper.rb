@@ -46,6 +46,8 @@ module Scry
           Scry::ExportGenerator.perform_async(
             cookie_crumbs,
             File.join(url, course_url),
+            bb_course_id(course_link.text),
+            bb_course_name(course_link.text),
           )
         end
       end

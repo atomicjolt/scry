@@ -21,13 +21,17 @@ module Scry
     #
     # Creates a course from the cookies,
     # then starts downloading the export.
+    # course_id is the blackboard text id for the course, NOT the id in the url.
     ##
-    def perform(cookie_crumbs, course_url, download_url)
+    def perform(cookie_crumbs, course_url, download_url, course_id, course_name)
       course = Course.from_cookies(cookie_crumbs, course_url)
       uri = URI.parse(course_url)
       uri.path = download_url
       course.download_export(uri.to_s)
-      write_log(Scry.export_download_good, course_url)
+      write_log(
+        Scry.export_download_good,
+        "#{course_url} #{course_id} #{course_name}",
+      )
     rescue SocketError, Mechanize::Error, Net::HTTPClientError => e
       write_log(
         Scry.export_download_bad,

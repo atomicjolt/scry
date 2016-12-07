@@ -21,8 +21,11 @@ module Scry
     #
     # Creates a course from the cookies,
     # then starts generating the export.
+    #
+    # course_id is the text id that blackboard has for the course, NOT the id
+    # given in the url.
     ##
-    def perform(cookie_crumbs, course_url)
+    def perform(cookie_crumbs, course_url, course_id, course_name)
       course = Course.from_cookies(cookie_crumbs, course_url)
       exports_page = course.create_export
       if exports_page.is_a? Mechanize::Page
@@ -34,6 +37,8 @@ module Scry
             cookie_crumbs,
             course_url,
             download_url,
+            course_id,
+            course_name
           )
         else
           write_log(Scry.export_generation_bad, course_url)

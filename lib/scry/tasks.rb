@@ -26,6 +26,11 @@ module Scry
         task :clean do
           rm_rf Scry.default_dir
         end
+
+        desc "Upload scraped courses to canvas"
+        task :upload do
+          Scry.upload
+        end
       end
     end
   end
