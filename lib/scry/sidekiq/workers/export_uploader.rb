@@ -1,11 +1,8 @@
 require "sidekiq"
-require "rest-client"
-require "pandarus"
 require "scry"
-require "scry/course"
-require "scry/export_failed"
+require "scry/canvas_course"
 require "scry/helpers"
-require 'byebug'
+
 ##
 # Works on uploading the export.
 #
@@ -18,58 +15,35 @@ module Scry
     sidekiq_options queue: :scry_export_uploader, retry: 5
 
     ##
-    # Instigates generating an export.
+    # Uploads an export to canvas
     #
-    # Creates a course from the cookies,
-    # then starts generating the export.
-    #
-    # course_id is the text id that blackboard has for the course, NOT the id
-    # given in the url.
+    # Creates a canvas course from the course name and code,
+    # then creates a content migration and uploads the export to the blackboard
+    # importer
     ##
     def perform(course_name, course_code, export_path)
-      canvas = Pandarus::Client.new(
-        prefix: Scry.canvas_api_url,
-        token: Scry.canvas_auth_token,
-        account_id: Scry.canvas_account_id,
-      )
+      course = CanvasCourse.new(course_name, course_code, export_path)
 
-      course = canvas.create_new_course(
-        {
-          "course__name__" => course_name,
-          "course__course_code__" => course_code,
-        }
-      )
+      course.create_on_canvas
 
-      content_migration = canvas.create_content_migration_courses(
-        course.id,
-        "blackboard_importer",
-        {
-          "pre_attachment__name__" => File.basename(export_path)
-        }
-      )
+      success = course.import_into_canvas
 
-      cm_pre_attachment = content_migration.pre_attachment
-      content_migration_upload_params = cm_pre_attachment["upload_params"]
-      content_migration_upload_url = cm_pre_attachment["upload_url"]
-      content_migration_upload_params["file"] = File.new(export_path)
-      begin
-        response = RestClient.post(
-          content_migration_upload_url,
-          content_migration_upload_params
+      if success
+        write_log(
+          Scry.export_upload_good,
+          "#{export_path} course: #{course && course.canvas_id}",
         )
-      rescue => e
-        byebug
-        c = 1
+      else
+        write_log(
+          Scry.export_upload_bad,
+          "#{export_path} course: #{course && course.canvas_id}",
+        )
       end
-
-      content_migration = canvas.get_content_migration_courses(
-        course.id,
-        content_migration.id
+    rescue
+      write_log(
+        Scry.export_upload_bad,
+        "#{export_path} course: #{course && course.canvas_id}",
       )
-
-      byebug
-      c = 1
-
     end
   end
 end

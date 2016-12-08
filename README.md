@@ -67,6 +67,8 @@ This is the default configuration:
 :export_generation_bad: export_generation_bad.txt
 :export_download_good: export_download_good.txt
 :export_download_bad: export_download_bad.txt
+:export_upload_good: export_upload_good.txt
+:export_upload_bad: export_upload_bad.txt
 :export_generation_no_export_button: export_generation_no_export_button.txt
 ```
 And if a different export folder is desired:

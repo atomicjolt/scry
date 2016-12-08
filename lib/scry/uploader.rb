@@ -5,7 +5,7 @@ require "scry"
 require "scry/sidekiq/workers/export_uploader"
 require "scry/helpers"
 require "scry/course"
-require 'byebug'
+
 module Scry
   extend Scry::Helpers
 
@@ -16,10 +16,10 @@ module Scry
   # and creates a sidekiq to generate an export for it.
   ##
   def self.upload
-
     files_downloaded = Dir.glob(File.join(Scry.default_dir, "*.zip"))
+    courses_uploaded = Scry.courses_uploaded
 
-    courses_downloaded.each_line do |course_downloaded|
+    Scry.courses_downloaded.each_line do |course_downloaded|
       course_code = course_id_from_log(course_downloaded)
       course_name = course_name_from_log(course_downloaded)
 
@@ -27,12 +27,10 @@ module Scry
         file_path.include?(course_code)
       end
 
-      byebug
-
-      if course_file_path
+      if course_file_path && !courses_uploaded.include?(course_file_path)
         ExportUploader.perform_async(course_name, course_code, course_file_path)
       else
-        raise "Good upload not found in #{Scry.default_dir}!"
+        raise "Export in #{Scry.export_download_good} not found in #{Scry.default_dir}!"
       end
     end
   end

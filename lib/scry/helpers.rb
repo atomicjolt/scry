@@ -46,13 +46,5 @@ module Scry
       split_line = log_line.strip.split(" ", 3)
       split_line.count < 3 ? nil : split_line[2]
     end
-
-    def courses_downloaded
-      if File.exists?(Scry.export_download_good)
-        File.read(Scry.export_download_good)
-      else
-        ""
-      end
-    end
   end
 end
